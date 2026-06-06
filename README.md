@@ -14,14 +14,16 @@
 ## 快速开始
 
 ```bash
-# 编译
-make
+# 编译（任选其一）
+make              # Linux / macOS / WSL
+mingw32-make      # Windows + MinGW
 
 # 运行
-./dormitory
+./dormitory       # Linux / macOS
+dormitory.exe     # Windows
 
 # 清理构建产物
-make clean
+make clean        # 或 mingw32-make clean
 ```
 
 ## 项目结构
@@ -77,7 +79,13 @@ dormitory-system/
 | 快速排序 | 姓名（升序） | O(n log n) |
 | 直接插入排序 | 楼号 + 房间号 | O(n²) |
 
-## 依赖
+## 编译环境
 
-- g++ (支持 C++11)
-- macOS / Linux
+| 平台 | 编译器 | 构建工具 |
+|------|--------|----------|
+| Windows | [MinGW-W64](https://www.mingw-w64.org/) g++ | `mingw32-make` |
+| Linux | g++ | `make` |
+| macOS | g++ / clang++ | `make` |
+
+- 需支持 C++11（`-std=c++11`）
+- Windows 下程序已内置 UTF-8 编码处理，中文显示不会乱码
