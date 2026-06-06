@@ -56,6 +56,7 @@ static void expandIfNeeded(DormSystem& sys) {
 
 void addStudent(DormSystem& sys) {
     printf("\n--- 录入学生信息 ---\n");
+    printf("(输入 q 可随时取消录入)\n\n");
 
     expandIfNeeded(sys);
     Student& s = sys.students[sys.count];
@@ -63,6 +64,10 @@ void addStudent(DormSystem& sys) {
     printf("请输入学号: ");
     scanf("%19s", s.id);
     while (getchar() != '\n');
+    if (strcmp(s.id, "q") == 0 || strcmp(s.id, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     if (findById(sys, s.id) >= 0 && findById(sys, s.id) < sys.count) {
         printf("错误: 学号 %s 已存在!\n", s.id);
@@ -72,30 +77,58 @@ void addStudent(DormSystem& sys) {
     printf("请输入姓名: ");
     scanf("%29s", s.name);
     while (getchar() != '\n');
+    if (strcmp(s.name, "q") == 0 || strcmp(s.name, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入性别(男/女): ");
     scanf("%4s", s.gender);
     while (getchar() != '\n');
+    if (strcmp(s.gender, "q") == 0 || strcmp(s.gender, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入宿舍楼号: ");
     scanf("%9s", s.building);
     while (getchar() != '\n');
+    if (strcmp(s.building, "q") == 0 || strcmp(s.building, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入房间号: ");
     scanf("%9s", s.room);
     while (getchar() != '\n');
+    if (strcmp(s.room, "q") == 0 || strcmp(s.room, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入床位号: ");
     scanf("%4s", s.bed);
     while (getchar() != '\n');
+    if (strcmp(s.bed, "q") == 0 || strcmp(s.bed, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入联系电话: ");
     scanf("%14s", s.phone);
     while (getchar() != '\n');
+    if (strcmp(s.phone, "q") == 0 || strcmp(s.phone, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     printf("请输入专业/院系: ");
     scanf("%29s", s.major);
     while (getchar() != '\n');
+    if (strcmp(s.major, "q") == 0 || strcmp(s.major, "Q") == 0) {
+        printf("已取消录入.\n");
+        return;
+    }
 
     sys.count++;
     printf("录入成功! 当前共有 %d 条记录.\n", sys.count);
@@ -103,6 +136,7 @@ void addStudent(DormSystem& sys) {
 
 void deleteStudent(DormSystem& sys) {
     printf("\n--- 删除学生信息 ---\n");
+    printf("(输入 q 可取消)\n");
     if (sys.count == 0) {
         printf("当前没有学生记录.\n");
         return;
@@ -112,6 +146,10 @@ void deleteStudent(DormSystem& sys) {
     printf("请输入要删除的学生学号: ");
     scanf("%19s", id);
     while (getchar() != '\n');
+    if (strcmp(id, "q") == 0 || strcmp(id, "Q") == 0) {
+        printf("已取消删除.\n");
+        return;
+    }
 
     int idx = findById(sys, id);
     if (idx < 0) {
@@ -141,6 +179,7 @@ void deleteStudent(DormSystem& sys) {
 
 void modifyStudent(DormSystem& sys) {
     printf("\n--- 修改学生信息 ---\n");
+    printf("(输入 q 可随时取消修改)\n");
     if (sys.count == 0) {
         printf("当前没有学生记录.\n");
         return;
@@ -150,6 +189,10 @@ void modifyStudent(DormSystem& sys) {
     printf("请输入要修改的学生学号: ");
     scanf("%19s", id);
     while (getchar() != '\n');
+    if (strcmp(id, "q") == 0 || strcmp(id, "Q") == 0) {
+        printf("已取消修改.\n");
+        return;
+    }
 
     int idx = findById(sys, id);
     if (idx < 0) {
@@ -168,36 +211,43 @@ void modifyStudent(DormSystem& sys) {
     printf("姓名 [%s]: ", s.name);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.name, buf, MAX_NAME_LEN - 1);
 
     printf("性别 [%s]: ", s.gender);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.gender, buf, MAX_GENDER_LEN - 1);
 
     printf("楼号 [%s]: ", s.building);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.building, buf, MAX_BUILDING_LEN - 1);
 
     printf("房间 [%s]: ", s.room);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.room, buf, MAX_ROOM_LEN - 1);
 
     printf("床号 [%s]: ", s.bed);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.bed, buf, MAX_BED_LEN - 1);
 
     printf("电话 [%s]: ", s.phone);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.phone, buf, MAX_PHONE_LEN - 1);
 
     printf("专业 [%s]: ", s.major);
     fgets(buf, sizeof(buf), stdin);
     buf[strcspn(buf, "\n")] = '\0';
+    if (strcmp(buf, "q") == 0 || strcmp(buf, "Q") == 0) { printf("已取消修改.\n"); return; }
     if (strlen(buf) > 0) strncpy(s.major, buf, MAX_MAJOR_LEN - 1);
 
     printf("修改成功!\n");
@@ -219,13 +269,16 @@ void displayAll(DormSystem& sys) {
 
 static void sequentialSearchMenu(DormSystem& sys) {
     printf("\n--- 顺序查找 ---\n");
+    printf("(输入 q 可随时取消)\n");
     printf("请选择查找字段:\n");
     printf("1.学号  2.姓名  3.性别  4.楼号  5.房间  6.电话  7.专业\n");
     printf("请选择: ");
 
-    int field;
-    scanf("%d", &field);
+    char input[10];
+    scanf("%9s", input);
     while (getchar() != '\n');
+    if (strcmp(input, "q") == 0 || strcmp(input, "Q") == 0) return;
+    int field = atoi(input);
 
     if (field < 1 || field > 7) {
         printf("无效选择.\n");
@@ -236,6 +289,10 @@ static void sequentialSearchMenu(DormSystem& sys) {
     printf("请输入查找关键字: ");
     scanf("%49s", keyword);
     while (getchar() != '\n');
+    if (strcmp(keyword, "q") == 0 || strcmp(keyword, "Q") == 0) {
+        printf("已取消查找.\n");
+        return;
+    }
 
     int* indices = new int[sys.count];
     int matchCount = sequentialSearch(sys, field - 1, keyword, indices);
@@ -254,12 +311,17 @@ static void sequentialSearchMenu(DormSystem& sys) {
 
 static void binarySearchMenu(DormSystem& sys) {
     printf("\n--- 折半查找 ---\n");
+    printf("(输入 q 可取消)\n");
     printf("注意: 折半查找需要先按学号排序.\n");
 
     char id[MAX_ID_LEN];
     printf("请输入要查找的学号: ");
     scanf("%19s", id);
     while (getchar() != '\n');
+    if (strcmp(id, "q") == 0 || strcmp(id, "Q") == 0) {
+        printf("已取消查找.\n");
+        return;
+    }
 
     ensureSortedById(sys);
     int idx = binarySearchById(sys, id);
@@ -275,11 +337,16 @@ static void binarySearchMenu(DormSystem& sys) {
 
 static void blockSearchMenu(DormSystem& sys) {
     printf("\n--- 分块查找 ---\n");
+    printf("(输入 q 可取消)\n");
 
     char building[MAX_BUILDING_LEN];
     printf("请输入要查找的楼号: ");
     scanf("%9s", building);
     while (getchar() != '\n');
+    if (strcmp(building, "q") == 0 || strcmp(building, "Q") == 0) {
+        printf("已取消查找.\n");
+        return;
+    }
 
     int idx = blockSearchByBuilding(sys, building);
 
@@ -309,11 +376,13 @@ void searchMenu(DormSystem& sys) {
     printf("1. 顺序查找\n");
     printf("2. 折半查找\n");
     printf("3. 分块查找\n");
-    printf("请选择查找方式: ");
+    printf("请选择查找方式(输入 q 返回): ");
 
-    int choice;
-    scanf("%d", &choice);
+    char input[10];
+    scanf("%9s", input);
     while (getchar() != '\n');
+    if (strcmp(input, "q") == 0 || strcmp(input, "Q") == 0) return;
+    int choice = atoi(input);
 
     switch (choice) {
         case 1: sequentialSearchMenu(sys); break;
@@ -333,11 +402,13 @@ void sortMenu(DormSystem& sys) {
     printf("1. 冒泡排序（按学号）\n");
     printf("2. 快速排序（按姓名）\n");
     printf("3. 直接插入排序（按楼号+房间）\n");
-    printf("请选择排序方式: ");
+    printf("请选择排序方式(输入 q 返回): ");
 
-    int choice;
-    scanf("%d", &choice);
+    char input[10];
+    scanf("%9s", input);
     while (getchar() != '\n');
+    if (strcmp(input, "q") == 0 || strcmp(input, "Q") == 0) return;
+    int choice = atoi(input);
 
     switch (choice) {
         case 1:
